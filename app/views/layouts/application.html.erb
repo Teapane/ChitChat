@@ -4,11 +4,10 @@
     <title>GuildChitterChatter</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= javascript_pack_tag 'hello' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
     <%= yield %>
   </body>

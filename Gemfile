@@ -12,7 +12,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 #webpacker so we can use React
-gem 'webpacker', '>= 4.0.x'
+gem 'webpacker', '~> 3.5'
 
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
