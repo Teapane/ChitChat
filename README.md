@@ -1,4 +1,14 @@
-# README
+# Guild Chat App
+
+ - Allows people to create chat rooms and converse! Utilizes Rails 5.2, ActionCable, React and Postgres.
+
+# Design Decisions
+
+# Tech Stack
+
+# User Interaction
+
+#
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
