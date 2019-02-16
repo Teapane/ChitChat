@@ -3,6 +3,10 @@
  - Allows people to create chat rooms and converse! Utilizes Rails 5.2, ActionCable, React and Postgres.
 
 # Design Decisions
+ - Models
+  - ChatRooms -> have_many messages
+  - Messages -> belong_to ChatRooms
+  - Messages -> have_one user
 
 # Tech Stack
 
