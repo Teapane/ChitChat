@@ -4,7 +4,7 @@ class ChatsController < ApplicationController
 
   def index
     @chats = ChatRoom.all
-    @chat = ChatRoom.new
+    render json: @chats
   end
 
   def create

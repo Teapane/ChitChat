@@ -38,6 +38,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
   gem 'rspec-rails', '~> 3.8'
+  gem 'rails-controller-testing'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
