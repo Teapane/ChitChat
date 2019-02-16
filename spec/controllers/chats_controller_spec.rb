@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ChatsController, type: :controller do
-  describe 'GET index' do
+  describe 'GET get_chats ' do
     it "responds correctly" do
       get :index
       expect(response.status).to eq(200)
@@ -11,7 +11,7 @@ RSpec.describe ChatsController, type: :controller do
       chat = ChatRoom.create(name: 'TEST')
       chat2 = ChatRoom.create(name: 'SECOND CHAT')
 
-      get :index
+      get :all_chats
 
       resp = JSON.parse(response.body)
       expect(resp[0]['name']).to eq('TEST')

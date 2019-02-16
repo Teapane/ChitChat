@@ -1,8 +1,31 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import {API_ROOT, API_WS_ROOT, HEADERS } from
+'./api_constants';
 
 export default class NewChat extends Component {
   state = {
-   name: ''
+    name: '',
+    chats: []
+  };
+
+  componentDidMount() {
+    fetch(`${API_ROOT}/all_chats`)
+      .then(response => {
+        return response.json();
+      })
+      .then((chats) => {
+        return this.setState({ chats })
+      });
+  }
+
+  renderChats = (chats) => {
+    return (
+      chats.map((x) => {
+        <div>
+          {x.name}
+        </div>
+      })
+    );
   };
 
   renderNewChatButton = () => {
@@ -32,12 +55,6 @@ export default class NewChat extends Component {
   };
 
   displayChatOptions = (e) => {
-    const API_ROOT = 'http://localhost:3000';
-    const API_WS_ROOT = 'ws://localhost:3000/cable';
-    const HEADERS = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    }
     e.preventDefault()
     fetch(`${API_ROOT}/chats`, {
       method: 'POST',
@@ -47,6 +64,7 @@ export default class NewChat extends Component {
   };
 
   render() {
+    console.log(this.state)
     return (
       <div>
         {this.renderNewChatButton()}

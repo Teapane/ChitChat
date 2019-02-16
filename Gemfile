@@ -9,7 +9,7 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
+# gem 'jbuilder', '~> 2.5'
 
 #webpacker so we can use React
 gem 'webpacker', '~> 3.5'

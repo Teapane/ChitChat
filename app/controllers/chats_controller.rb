@@ -1,10 +1,15 @@
 class ChatsController < ApplicationController
   #not really ideal, but...
   skip_before_action :verify_authenticity_token
+  respond_to? :json
 
   def index
+  end
+
+  def all_chats
     @chats = ChatRoom.all
-    render json: @chats
+    p @chats
+    render json: @chats.to_json
   end
 
   def create
