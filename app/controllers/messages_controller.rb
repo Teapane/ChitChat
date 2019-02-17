@@ -1,17 +1,21 @@
 class MessagesController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  respond_to? :json
 
   def index
-    ChatRoom.find_by(url: params[:url])
-    render plain: "ok"
+    @chat_room = ChatRoom.find_by(url: params[:other])
+    @messages = Message.all_messages
+    render :index
   end
 
   def create
-    url = params[:url]
-    body = params[:body]
+    @messages = @chat_room.messages.create(body: body)
+    render json: @messages
+  end
 
-    ChatRoom.find_by(url: url).id
-    chatroom.messages.create(body: body)
+  private
 
-    render json: chatroom.all_messages
+  def message_params
+    params.require(:message).permit(:body, :other)
   end
 end
