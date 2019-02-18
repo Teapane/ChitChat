@@ -1,0 +1,2 @@
+HOT-RELOAD_NODE: ./bin/webpack-dev-server
+RAILS-SERVER: bundle exec rails server
