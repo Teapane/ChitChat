@@ -18,12 +18,9 @@ class MessagesController < ApplicationController
   end
 
   def create
-    p params
     body = params[:message][:body]
     chat = ChatRoom.find(params[:message][:other])
-    p chat
     @message = chat.messages.create(body: body)
-    p @message
     chat_cable(@message)
 
     render json: @message

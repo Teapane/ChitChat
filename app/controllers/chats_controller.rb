@@ -18,7 +18,6 @@ class ChatsController < ApplicationController
   end
 
   def create
-    p params
     record = ChatRoom.create(chat_params)
     generate_unique_url_for_chat(record)
     url = record.url

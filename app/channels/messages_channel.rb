@@ -4,10 +4,11 @@ class MessagesChannel < ApplicationCable::Channel
   end
 
   def follow(data)
+    stop_all_streams
     stream_from "messages:#{data['body']}"
   end
 
   def unsubscribed
-    # Any cleanup needed when channel is unsubscribed
+    stop_all_streams
   end
 end
