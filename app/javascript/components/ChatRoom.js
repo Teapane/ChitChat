@@ -58,7 +58,7 @@ class ChatRoom extends React.Component {
         },
       }),
     }).then(response => {
-      this.setState({body: ''})
+      this.setState({body: ''});
       return response.json();
     });
   };
@@ -77,6 +77,7 @@ class ChatRoom extends React.Component {
     return (
       <div style={styles.mainDiv}>
         <div style={styles.messages}>{this.renderMessages(messages)}</div>
+        {this.renderInput()}
       </div>
     );
   };
@@ -105,12 +106,7 @@ class ChatRoom extends React.Component {
   };
 
   render() {
-    return (
-      <div>
-        {this.renderChatBox(this.state.messages)}
-        {this.renderInput()}
-      </div>
-    );
+    return <div>{this.renderChatBox(this.state.messages)}</div>;
   }
 }
 
@@ -134,7 +130,8 @@ const styles = {
   messages: {
     width: '75%',
     height: '75%',
-    background: 'green',
+    background: 'white',
+    overflow: 'auto',
   },
 };
 

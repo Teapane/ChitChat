@@ -18,6 +18,6 @@ yarn install
 echo 'Yarn installed'
 
 echo 'Setting Up Database'
-bundle exec rake db:create; rake db:migrate
+bundle exec rake db:create db:migrate
 
 

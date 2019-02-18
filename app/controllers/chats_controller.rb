@@ -8,19 +8,20 @@ class ChatsController < ApplicationController
   end
 
   def all_chats
-    @chats = ChatRoom.all
-    render json: @chats.to_json
+    chats = ChatRoom.all
+    render json: chats.to_json
   end
 
   def chat_room
-    @chat_room = ChatRoom.find_by(url: params[:other])
-    render json: @chat_room
+    chat_room = ChatRoom.find_by(url: params[:other])
+    render json: chat_room.to_json
   end
 
   def create
     record = ChatRoom.create(chat_params)
     generate_unique_url_for_chat(record)
     url = record.url
+
     render json: url.to_json
   end
 
