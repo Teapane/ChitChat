@@ -23,8 +23,11 @@ RSpec.describe ChatsController, type: :controller do
 
   describe 'POST #create' do
     it 'creates a new chat room with correct params' do
-      post :create, params: {chat: { name: 'New Chat Room' }}
-      expect(response.status).to eq(204)
+      expect {
+        post :create, params: {chat: {name: 'ChatRoom!'}}, format: :json
+      }.to change {
+        ChatRoom.count
+      }.by(1)
     end
   end
 end

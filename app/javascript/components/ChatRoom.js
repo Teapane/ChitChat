@@ -58,6 +58,7 @@ class ChatRoom extends React.Component {
         },
       }),
     }).then(response => {
+      this.setState({body: ''})
       return response.json();
     });
   };
