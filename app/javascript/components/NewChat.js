@@ -24,7 +24,7 @@ class NewChat extends React.Component {
         <span>
           <p key={x.id}> {x.name} </p>
           <p key={`${x.id} + created_at`}> {x.created_at} </p>
-          <a href={`${window.location.href}chats/${x.url}`}>Visit ChatRoom </a>
+          <a href={`${window.location.href}chats/${x.id}/${x.url}`}>Visit ChatRoom </a>
         </span>
       );
     });

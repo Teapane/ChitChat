@@ -4,13 +4,41 @@ class MessagesController < ApplicationController
 
   def index
     @chat_room = ChatRoom.find_by(url: params[:other])
-    @messages = Message.all_messages
+    @messages = @chat_room.messages
     render :index
   end
 
+  def all_messages
+    @chat_room = ChatRoom.find(params[:id])
+    @messages = @chat_room.messages
+    render json: {
+      messages: @messages,
+      chatId: @chat_room.id
+    }.to_json
+  end
+
   def create
-    @messages = @chat_room.messages.create(body: body)
-    render json: @messages
+    p params
+    body = params[:message][:body]
+    chat = ChatRoom.find(params[:message][:other])
+    p chat
+    @message = chat.messages.create(body: body)
+    p @message
+    chat_cable(@message)
+
+    render json: @message
+  end
+
+
+  def chat_cable(message)
+    ActionCable.server.broadcast(
+      "messages_channel",
+      id: message.id,
+      chat_room_id: message.chat_room_id,
+      body: message.body,
+      created_at: message.created_at,
+      updated_at: message.updated_at
+    )
   end
 
   private
