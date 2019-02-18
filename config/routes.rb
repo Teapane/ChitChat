@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'chats#index'
-  get 'chats/:id/*other', to: 'messages#index'
+  get 'chats/:id/*url', to: 'messages#index'
   get 'all_chats', to: 'chats#all_chats'
   get 'all_messages/:id', to: 'messages#all_messages'
 

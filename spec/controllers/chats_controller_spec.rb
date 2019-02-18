@@ -15,6 +15,7 @@ RSpec.describe ChatsController, type: :controller do
 
       resp = JSON.parse(response.body)
       expect(resp[0]['name']).to eq('TEST')
+      #tests generate_unique_url returns a string
       expect(resp[0]['url']).to be_a_kind_of(String)
       expect(resp[1]['name']).to eq('SECOND CHAT')
       expect(resp[1]['url']).to be_a_kind_of(String)

@@ -1,4 +1,4 @@
-# Guild Chat App
+# Chit Chat App 🗣
 
 Allows people to create chat rooms and converse. My idea was too have the ability to generate a unique URL, which would link to a 'chat room'. I decided to use `Rails`, because I like `Rails` and how quickly it allows a proof of concept to be built. I toyed with the idea of using `Node` and `Typescript`, but ultimately decided to just stick with something I knew well.  In order to have chats stay up to date, I decided to use Websockets, via `ActionCable`. I have never used `ActionCable` before, so it was fun, and a bit of a headache at times, to get set up. I worked on this over the course of a few days, an hour here and there when I had time.
 
@@ -6,7 +6,7 @@ Allows people to create chat rooms and converse. My idea was too have the abilit
 - Rails 5.2 🛤
 - React 16 ⚛️
 - Webpacker (So I didn't have to fuss with Webpack config) 🛄
-- react_rails (easy way to mount components in Rails)
+- react_rails (easy way to mount components in Rails) 🚠
 - ActionCable (Websockets) 🔥
 - Rspec 📓
 
@@ -17,19 +17,22 @@ Allows people to create chat rooms and converse. My idea was too have the abilit
 
 - The `db schema` is pretty simple, with just two models.  On `root`, a button allows the creation of a `ChatRoom`, which is just a way to identify the chat. The idea was that when a room was created, the user can share the URL to the room and then converse with whoemever they share the link with. `Messages` are created with the `chat_room_id`, so that you can revisit your chat.
 
-- I would also probably add `Users` at some point, because currently there is now way to know who is saying what. However, I didn't want to deal with authentication or users per the problem request.
+- I would also probably add `Users` at some point, (I actually created the table and migration, but didn't implement them!) because currently there is no way to know who is saying what in the chat; however, I didn't want to deal with authentication or users per the problem request.
 
+### WebSockets
 - I knew that I wanted to use Websockets, for live updating, so I went with `ActionCable`, since it was built into Rails and seemed to handle my use case. It was fun to setup, but I couldn't get it working locally with `async` and instead had to use `redis`.  I had to modify `config/cable.yml` to use `adapter: redis`, even in development. ActionCable also didn't seem to play nicely with `sqlite` or `mysql`, so I ended up using `Postgres` for the db.
 
+### FrontEnd
 - I used React for the frontend, because I really enjoy the framework; however, I don't think I love integrating React into a rails app. I used webpacker to handle building assets as well as allowing hot reloading, mainly because it works with relatively low configuration (I didn't want to write a `webpack.config`). I also ended up using `react_rails` gem, which allows you to just mount components in `erb` views which is pretty nice.  I didn't venture into React Hooks territory, and instead just used `Classes`. I didn't write any Front End specs, mainly because I ran out of time.
 
+### Specs
 - For testing, I opted for `Rspec` because I like the syntax and it allows for easy controller testing. I just wrote a few basic controller specs, to test routes and create methods.
 
 # What Went Wrong
 
 - This is by no means done, or visually appealing, but all in all was a fun challenge. I also didn't test this on any browsers other than Chrome.  There are a few known issues!
 
- ### Issue One
+ ### Issue One (RESOLVED - Remove Turbolinks from application.js 😅)
   React Components are not mounting correctly, unless the page is hard refreshed. I think this is something to do with the `react_rails` gem. For example, if a user generate a new chat, then click the link to visit the page, the page will be blank unless the user refreshes the page. Obviously, this is a pretty bad bug/experience, that I need to address.
 
  ### Issue Two
@@ -46,6 +49,27 @@ Allows people to create chat rooms and converse. My idea was too have the abilit
 To run locally:
 ```
 $ ./setup.sh
+```
+
+- `ActionCable` requires `redis` to run locally. You can `brew install redis` if you don't have it installed; then, in a seperate terminal instance, just run:
+```
+$ redis-server.
+```
+Confirm Redis is running:
+```
+$ ps -ef | grep 6379
+```
+You should see something like:
+```
+  501 60051 59807   0 12:06PM ttys001    0:06.25 redis-server *:6379
+```
+which means redis is running and accepting connections on `port:6379`!
+
+
+Also, in order to run locally you need `Postgres` installed and running. I use [PostgresApp](https://postgresapp.com/). Modify `config/database.yml` with your `Postgres` user, and you should be good to go!
+
+Finally, run:
+```
 $ ./start.sh
 ```
-- `ActionCable` requires `redis`. In a seperate terminal instance, just run `redis-server`. Also, in order to run locally you need `Postgres` installed and running. I use [PostgresApp](https://postgresapp.com/). That should be it!
+Visit `localhost:3000`, create a new chat and get to chatting!

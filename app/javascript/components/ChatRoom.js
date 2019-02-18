@@ -1,5 +1,5 @@
 import React from 'react';
-import {API_ROOT, API_WS_ROOT, HEADERS} from './api_constants';
+import {API_ROOT, API_SOCKET_ROOT, HEADERS} from './api_constants';
 
 class ChatRoom extends React.Component {
   state = {
@@ -69,7 +69,15 @@ class ChatRoom extends React.Component {
 
   renderMessages = messages => {
     return messages.map(x => {
-      return <p key={`message${x.id}`}> {x.body} </p>;
+      const createdTime = new Date(x.created_at).toString();
+      return (
+        <span style={styles.individualMessages}>
+          <p style={styles.chatMessage} key={`message${x.id}`}>
+            {x.body}
+          </p>
+          <p key={`messages${x.created_at}`}> Sent At: {createdTime}</p>
+        </span>
+      );
     });
   };
 
@@ -84,7 +92,7 @@ class ChatRoom extends React.Component {
 
   renderInput = () => {
     return (
-      <div>
+      <div style={styles.submitChat}>
         <form onSubmit={this.createNewMessage}>
           <label>New Message:</label>
           <br />
@@ -115,15 +123,16 @@ const styles = {
     backgroundColor: '#4CAF50' /* Green */,
     border: 'none',
     color: 'white',
-    padding: '15px 32px',
+    padding: '16px 16px',
     textAlign: 'center',
+    marginTop: '8px',
   },
   mainDiv: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'red',
+    background: '#01a8a5',
     height: '650px',
     width: '650px',
   },
@@ -132,6 +141,23 @@ const styles = {
     height: '75%',
     background: 'white',
     overflow: 'auto',
+  },
+  individualMessages: {
+    display: 'flex',
+    border: '1px solid',
+    borderRadius: '25px',
+    margin: '8px',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  submitChat: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  chatMessage: {
+    fontWeight: 'bold',
+    fontSize: '16px',
   },
 };
 

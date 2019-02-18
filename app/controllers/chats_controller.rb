@@ -1,7 +1,6 @@
 class ChatsController < ApplicationController
   #not really ideal, but...
   skip_before_action :verify_authenticity_token
-  respond_to? :json
 
   def index
     render :index
@@ -13,7 +12,7 @@ class ChatsController < ApplicationController
   end
 
   def chat_room
-    chat_room = ChatRoom.find_by(url: params[:other])
+    chat_room = ChatRoom.find_by(url: params[:url])
     render json: chat_room.to_json
   end
 
@@ -21,8 +20,12 @@ class ChatsController < ApplicationController
     record = ChatRoom.create(chat_params)
     generate_unique_url_for_chat(record)
     url = record.url
+    id = record.id
 
-    render json: url.to_json
+    render json: {
+      url:  url,
+      id: id
+    }.to_json
   end
 
   private

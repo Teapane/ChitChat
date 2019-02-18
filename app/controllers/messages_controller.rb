@@ -1,9 +1,8 @@
 class MessagesController < ApplicationController
   skip_before_action :verify_authenticity_token
-  respond_to? :json
 
   def index
-    chat_room = ChatRoom.find_by(url: params[:other])
+    chat_room = ChatRoom.find_by(url: params[:url])
     messages = chat_room.messages
     render :index
   end
@@ -26,6 +25,7 @@ class MessagesController < ApplicationController
     render json: message
   end
 
+  private
 
   def chat_cable(message)
     ActionCable.server.broadcast(
@@ -37,8 +37,6 @@ class MessagesController < ApplicationController
       updated_at: message.updated_at
     )
   end
-
-  private
 
   def message_params
     params.require(:message).permit(:body, :other)
